@@ -1,0 +1,36 @@
+ 
+
+{% load custom_tags %} 
+
+{% if products %}
+    {% with products|chunks:4 as product_chunks %}
+        {% for product_nanban in product_chunks %}
+            <div class="row">
+                {% for product in product_nanban %}
+                    <div class="col-4">
+                        <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" alt="{{ product.title }}"></a>
+
+                        <h4>{{ product.title }}</h4>
+                        <p>${{ product.price }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endwith %}
+{% else %}
+    <p>No products available.</p>
+{% endif %}
+
+<div class="page-btn">
+    {% if products.has_previous %}
+    <a href="?page={{ products.previous_page_number }}"><span>{{ "<<" }}</span><a>
+    {% endif %}    
+    {% for page_num in products.paginator.page_range %}
+    <a href="?page={{ page_num }}"><span>{{ page_num }}</span><a>
+    {% endfor %}    
+    {% if products.has_next %}
+    <a href="?page={{ products.next_page_number }}"><span>{{ ">>" }}</span></a>
+    {% endif %}
+</div>
+
+

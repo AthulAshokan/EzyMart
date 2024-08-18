@@ -1,10 +1,10 @@
 from django.db import models
-from customers.models import customer
-from products.models import product
+from customers.models import Customer
+from products.models import Product
 
 # Create oders models
 
-# Model for oder
+# Model for oder 
 class Order(models.Model):
   LIVE=1
   DELETE=0
@@ -19,7 +19,7 @@ class Order(models.Model):
                  (ORDER_REJECTED,"ORDER_REJECTEDA"),
                  )
   order_status=models.IntegerField(choices=STATUS_CHOICE,default=CART_STAGE)
-  owner=models.ForeignKey(customer,related_name="order",on_delete=models.SET_NULL,null=True)
+  owner=models.ForeignKey(Customer,related_name="order",on_delete=models.SET_NULL,null=True)
   delete_status=models.IntegerField(choices=DELETE_CHOICE,default=LIVE)
   created_at=models.DateTimeField(auto_now_add=True)
   update_at=models.DateTimeField(auto_now=True)
@@ -28,7 +28,7 @@ class Order(models.Model):
 
 from .models import Order
 class OrdedItem(models.Model):
-  product=models.ForeignKey(product,related_name="orded_item",on_delete=models.SET_NULL,null=True)
+  product=models.ForeignKey(Product,related_name="orded_item",on_delete=models.SET_NULL,null=True)
   quantiy= models.IntegerField(default=1)
   owner=models.ForeignKey(Order,related_name="added_item",on_delete=models.CASCADE)
   

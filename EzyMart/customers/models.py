@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create models from customers
 
-class customer(models.Model):
+class Customer(models.Model):
   LIVE=1
   DELETE=0
   DELETE_CHOICE=((LIVE,'Live'),(DELETE,'Delete'))
